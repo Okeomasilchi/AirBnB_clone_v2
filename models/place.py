@@ -38,9 +38,8 @@ class Place(BaseModel, Base):
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", backref="user", cascade="delete")
-    else:
-        @property
-        def reviews(self):
-            from models import storage
-            return [review for review in storage.all("Review").values()
-                    if review.place_id == self.id]
+    @property
+    def reviews(self):
+        from models import storage
+        return [review for review in storage.all("Review").values()
+                if review.place_id == self.id]
