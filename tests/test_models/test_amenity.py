@@ -5,7 +5,7 @@ from models.amenity import Amenity
 
 
 class test_Amenity(test_basemodel):
-    """ 
+    """
     The class "test_Amenity" is a
     subclass of "test_basemodel".
     """

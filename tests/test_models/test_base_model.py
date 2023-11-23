@@ -38,7 +38,7 @@ class test_basemodel(unittest.TestCase):
         """
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
 
     def test_default(self):

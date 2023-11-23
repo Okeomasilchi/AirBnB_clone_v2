@@ -6,7 +6,8 @@ from models.city import City
 
 class test_City(test_basemodel):
     """
-    The class "test_City" is a subclass of "test_basemodel".    
+    The class "test_City" is a subclass of
+    "test_basemodel".
     """
 
     def __init__(self, *args, **kwargs):
@@ -27,4 +28,3 @@ class test_City(test_basemodel):
         new = self.value()
         new.state_id = "497e3867-d6e9-4401-9c7c-9687c18d2ac7"
         self.assertEqual(type(new.state_id), str)
-
