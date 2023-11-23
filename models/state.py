@@ -15,6 +15,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        """ State the cities in a state"""
         from models.city import City
         from models import storage
         all_cities = storage.all(City).values()
