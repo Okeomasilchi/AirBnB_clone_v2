@@ -3,7 +3,27 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from os import getenv
+from models import storage
+from models.amenity import Amenity
 
+
+place_amenity = Table(
+    'place_amenity',
+    Base.metadata,
+    Column('place_id',
+           String(60),
+           ForeignKey('places.id'),
+           primary_key=True,
+           nullable=False),
+    Column('amenity_id',
+           String(60),
+           ForeignKey('amenities.id'),
+           primary_key=True,
+           nullable=False)
+    )
+
+<<<<<<< HEAD
 if storage_type == 'db'
     place_amenity = Table('place_amenity', Base.metadata,
                           Column('place_id', String(60),
@@ -15,6 +35,8 @@ if storage_type == 'db'
                                  primary_key=True,
                                  nullable=False)
                           )
+=======
+>>>>>>> 6754656dc1c1f96f3292a4c9d41e3a36d3a0ccba
 
 class Place(BaseModel, Base):
     """This is a place class model """
@@ -47,6 +69,7 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
+<<<<<<< HEAD
         @property
         def reviews(self):
             ''' The review instances relate with class review

@@ -49,6 +49,19 @@ class DBStorage:
                 dct[key] = obj
         return dct
 
+        """from models import storage
+        classes = [State, City, User, Amenity, Place, Review]
+        if cls:
+            classes = [cls]
+        ret = {}
+        for _class in classes:
+            data = self.__session.query(_class).all()
+            for item in data:
+                dic = item.to_dict()
+                dic.pop('_sa_instance_state', None)
+                ret[f"{item.__class__.__name__}.{dic['id']}"] = dic
+        return ret"""
+
     def new(self, obj):
         """Create new object """
         self.__session.add(obj)
@@ -65,9 +78,9 @@ class DBStorage:
     def reload(self):
         """ To create all tables in the database """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        self.__session = scoped_session(sessionmaker(bind=self.__engine,
+                                        expire_on_commit=False))
 
     def close(self):
         """To close all the working session """
         self.session.close()
-
