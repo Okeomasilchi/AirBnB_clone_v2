@@ -1,61 +1,36 @@
 #!/usr/bin/python3
-""" Test
-"""
-import os
-
-if os.path.exists("file.json"):
-    os.remove("file.json")
-
-from models.engine.file_storage import FileStorage
+from models import *
 from models.state import State
 from models.city import City
+from models.user import User
+from models.place import Place
+from models.amenity import Amenity
 
+s = State(name="California")
+s.save()
+c = City(state_id=s.id, name="San Francisco")
+c.save()
 
-if os.path.exists(FileStorage._FileStorage__file_path):
-    os.remove(FileStorage._FileStorage__file_path)
+u = User(email="a@a.com", password="pwd")
+u.save()
 
+p1 = Place(user_id=u.id, city_id=c.id, name="House 1")
+p1.save()
+p2 = Place(user_id=u.id, city_id=c.id, name="House 2")
+p2.save()
 
-fs = FileStorage()
+a1 = Amenity(name="Wifi")
+a1.save()
+a2 = Amenity(name="Cable")
+a2.save()
+a3 = Amenity(name="Eth")
+a3.save()
 
-# All with nothing
-all_objs = fs.all()
-if len(all_objs.keys()) > 0:
-    print("all() is returning result when it should not")
-    exit(1)
+p1.amenities.append(a1)
+p1.amenities.append(a2)
 
-# Create 2 States and 1 city
-search_keys = []
-new_state = State()
-new_state.name = "California"
-fs.new(new_state)
-fs.save()
-search_keys.append("{}.{}".format("State", new_state.id))
+p2.amenities.append(a1)
+p2.amenities.append(a2)
+p2.amenities.append(a3)
 
-new_state = State()
-new_state.name = "Nevada"
-fs.new(new_state)
-fs.save()
-search_keys.append("{}.{}".format("State", new_state.id))
-
-new_city = City()
-new_city.name = "Las Vegas"
-new_city.state_id = new_state.id
-fs.new(new_city)
-fs.save()
-city_search = "{}.{}".format("City", new_city.id)
-
-all_objs = fs.all(State)
-if len(all_objs.keys()) != 2:
-    print("all() is not returning all new State/City created")
-    exit(1)
-
-for key_search in search_keys:
-    if all_objs.get(key_search) is None:
-        print("State created should be in the list of objects")
-        exit(1)
-        
-if all_objs.get(city_search) is not None:
-    print("City created should not be in the list of objects if filtered by State")
-    exit(1)
-    
-print("OK", end="")
+storage.save()
