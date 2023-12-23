@@ -31,6 +31,9 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = Session()
 
+    def close(self):
+        self.__session.close()
+
     def all(self, cls=None):
         from models import storage
         classes = [State, City, User, Amenity, Place, Review]

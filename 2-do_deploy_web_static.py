@@ -6,10 +6,12 @@
 from fabric.api import local, env, put, run
 from datetime import datetime
 import os
+from fabric.connection import Connection
 
 host = ['54.198.56.98', '35.153.232.194']
 env.hosts = host
 env.user = "ubuntu"
+
 
 
 def do_pack():
@@ -35,29 +37,6 @@ def do_pack():
     else:
         return None
 
-
-def do_deploy(archive_path):
-    """
-    Distributes an archive to the web servers
-    """
-    if not os.path.exists(archive_path):
-        return False
-
-    try:
-        put(archive_path, "/tmp/")
-
-        file_name = archive_path.split("/")[-1]
-        folder_name = "/data/web_static/releases/{}". \
-            format(file_name.split(".")[0])
-        run("mkdir -p {}".format(folder_name))
-        run("tar -xzf /tmp/{} -C {}".format(file_name, folder_name))
-
-        run("rm /tmp/{}".format(file_name))
-
-        run("rm -f /data/web_static/current")
-
-        run("ln -s {} /data/web_static/current".format(folder_name))
-        return True
-
-    except Exception as e:
-        return False
+for host in env.hosts:
+    c = Connection(host=host, user=env.user, connect_kwargs={"key_filename": "~/.ssh/id_rsa"})
+    c.run('uname -s')

@@ -21,7 +21,8 @@ place_amenity = Table(
            ForeignKey('amenities.id'),
            primary_key=True,
            nullable=False)
-    )
+)
+
 
 
 class Place(BaseModel, Base):
