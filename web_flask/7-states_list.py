@@ -1,9 +1,10 @@
 #!/usr/bin/python3
+
 """
 Starts a Flask web application
 """
 
-from web_flask import app
+
 from flask import Flask, render_template
 from models import storage
 from models.state import State
