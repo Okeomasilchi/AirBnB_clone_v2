@@ -27,6 +27,7 @@ def home():
     """
     return "Hello HBNB!"
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """
@@ -36,6 +37,7 @@ def hbnb():
         str: "HBNB"
     """
     return "HBNB"
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def C(text):
