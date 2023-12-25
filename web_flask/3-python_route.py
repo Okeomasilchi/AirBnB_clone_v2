@@ -71,7 +71,7 @@ def python(text="is cool"):
     Returns:
         str: "python + {text}"
     """
-    return f"python {text.replace('_', ' ')}"
+    return f"Python {text.replace('_', ' ')}"
 
 
 if __name__ == "__main__":
