@@ -73,7 +73,7 @@ def python(text="is cool"):
     Returns:
         str: "python + {text}"
     """
-    return f"python {text.replace('_', ' ')}"
+    return f"Python {text.replace('_', ' ')}"
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
