@@ -8,7 +8,6 @@ Starts a Flask web application
 from flask import Flask, render_template
 from models import storage
 from models.state import State
-from os import environ
 
 app = Flask(__name__)
 
@@ -23,16 +22,13 @@ def teardown(exception):
 def states_list():
     """Display a HTML page with a list of all State objects"""
     states = storage.all(State)
-    sorted_states = sorted(states, key=lambda state: state.name)
-
-    return render_template('7-states_list.html', states=sorted_states)
+    ret = []
+    sorted_states = dict(sorted(states.items(), key=lambda x: x[1]['name']))
+    for state in sorted_states.items():
+        state = dict(state[1])
+        ret.append(state)
+    return render_template('7-states_list.html', data=ret)
 
 
 if __name__ == '__main__':
-    HBNB_MYSQL_USER = environ.get('HBNB_MYSQL_USER')
-    HBNB_MYSQL_PWD = environ.get('HBNB_MYSQL_PWD')
-    HBNB_MYSQL_HOST = environ.get('HBNB_MYSQL_HOST')
-    HBNB_MYSQL_DB = environ.get('HBNB_MYSQL_DB')
-    HBNB_TYPE_STORAGE = environ.get('HBNB_TYPE_STORAGE')
-
     app.run(host='0.0.0.0', port=5000)
