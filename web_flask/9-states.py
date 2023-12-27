@@ -12,6 +12,7 @@ from models.city import City
 
 app = Flask(__name__)
 
+
 def sort_dict(Class, by="name"):
     """
     sorts a dictionary of classes based on a
