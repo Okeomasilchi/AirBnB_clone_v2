@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<HTML lang="en">
-    <HEAD>
-        <TITLE>HBNB</TITLE>
-    </HEAD>
-    <BODY>
-        <H1>States</H1>
-        <UL>
-            {% for state in data %}
-                <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
-                <UL>
-                    {%- for city in cities -%}
-                        {% if city.state_id == state.id %}
-                            <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
-                        {% endif %}
-                    {% endfor %}
-                </UL>
-            {% endfor %}
-        </UL>
-    </BODY>
-</HTML>
+<html lang="en">
+    <head>
+        <title>HBNB</title>
+    </head>
+    <body>
+        <h1>States</h1>
+        <ul>
+        {% for state in data %}
+            <li>{{ state.id }}: <B>{{ state.name }}</B>
+                <ul>
+                {% for city in state.cities %}
+                    <li>{{ city.id }}: <B>{{ city.name }}</B></li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
